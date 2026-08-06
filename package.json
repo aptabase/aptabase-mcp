@@ -1,0 +1,52 @@
+{
+  "name": "aptabase-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for querying Aptabase analytics from AI agents (Cursor, Claude Desktop, etc.)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "aptabase-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/**/*.test.ts"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "aptabase",
+    "analytics",
+    "cursor"
+  ],
+  "author": "Billy Lo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/billylo1/aptabase-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/billylo1/aptabase-mcp/issues"
+  },
+  "homepage": "https://github.com/billylo1/aptabase-mcp#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
