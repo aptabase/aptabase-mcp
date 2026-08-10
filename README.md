@@ -24,7 +24,7 @@ Aptabase has no public query API. This server wraps the same cookie-authenticate
 Clone and build:
 
 ```bash
-git clone https://github.com/billylo1/aptabase-mcp.git
+git clone https://github.com/aptabase/aptabase-mcp.git
 cd aptabase-mcp
 npm install
 ```

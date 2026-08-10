@@ -31,12 +31,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/billylo1/aptabase-mcp.git"
+    "url": "git+https://github.com/aptabase/aptabase-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/billylo1/aptabase-mcp/issues"
+    "url": "https://github.com/aptabase/aptabase-mcp/issues"
   },
-  "homepage": "https://github.com/billylo1/aptabase-mcp#readme",
+  "homepage": "https://github.com/aptabase/aptabase-mcp#readme",
   "engines": {
     "node": ">=20"
   },
