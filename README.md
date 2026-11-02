@@ -99,6 +99,9 @@ Use the same host you logged into when copying the cookie.
 | `get_live_sessions` | Recent/live sessions |
 | `get_live_geo` | Live geo points |
 | `get_session_details` | Session timeline |
+| `get_errors` | SDK-reported errors (dashboard Errors page), filter by errorType/osName/severity, paginated |
+| `get_error_types` | Error types with counts |
+| `get_error_details` | One error incl. stack trace and sessionId |
 | `get_historical_sessions` | Historical sessions |
 | `get_monthly_usage` | Monthly event counts |
 

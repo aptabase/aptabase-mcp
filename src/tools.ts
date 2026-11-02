@@ -344,6 +344,85 @@ export function registerTools(server: McpServer, client: AptabaseClient): void {
     },
   );
 
+  const errorFilters = {
+    appId: z.string().describe("Aptabase app id (from list_apps)"),
+    buildMode: buildModeSchema,
+    period: periodSchema,
+    startDate: z.string().optional().describe("ISO start datetime (use with endDate)"),
+    endDate: z.string().optional().describe("ISO end datetime (use with startDate)"),
+  };
+
+  server.registerTool(
+    "get_errors",
+    {
+      description:
+        "Errors reported by the app's SDKs (Aptabase dashboard 'Errors' page, beta), newest first. Each entry has errorId, timestamp, errorType, severity and OS info; use get_error_details with an errorId for the stack trace. Paginated via offset/limit; the response includes pagination.total.",
+      inputSchema: {
+        ...errorFilters,
+        osName: z.string().optional().describe("Filter by OS name"),
+        errorType: z
+          .string()
+          .optional()
+          .describe("Filter by error type (see get_error_types)"),
+        severity: z
+          .string()
+          .optional()
+          .describe("Filter by severity, e.g. fatal or error"),
+        offset: z.number().int().min(0).default(0).describe("Pagination offset"),
+        limit: z
+          .number()
+          .int()
+          .min(1)
+          .max(100)
+          .default(20)
+          .describe("Page size (default 20)"),
+      },
+    },
+    async (args) => {
+      try {
+        return jsonResult(await client.getErrors(withDefaultPeriod(args)));
+      } catch (err) {
+        return errorResult(err);
+      }
+    },
+  );
+
+  server.registerTool(
+    "get_error_types",
+    {
+      description:
+        "Distinct SDK error types with occurrence counts for the period (e.g. to find the most frequent crash).",
+      inputSchema: errorFilters,
+    },
+    async (args) => {
+      try {
+        return jsonResult(await client.getErrorTypes(withDefaultPeriod(args)));
+      } catch (err) {
+        return errorResult(err);
+      }
+    },
+  );
+
+  server.registerTool(
+    "get_error_details",
+    {
+      description:
+        "Details of a single SDK error: timestamp, error type, stack trace and the sessionId it happened in (feed that into get_session_details).",
+      inputSchema: {
+        appId: z.string().describe("Aptabase app id"),
+        errorId: z.string().describe("Error id from get_errors"),
+        buildMode: buildModeSchema,
+      },
+    },
+    async (args) => {
+      try {
+        return jsonResult(await client.getErrorDetails(args));
+      } catch (err) {
+        return errorResult(err);
+      }
+    },
+  );
+
   server.registerTool(
     "get_monthly_usage",
     {
